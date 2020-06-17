@@ -16,7 +16,7 @@ using importing the pin mux driver into RTEMS from libBSD.
 
 # Phase 1
 
-### Import OFW files from FreeBSD
+### Import OFW files from FreeBSD (June 11 2020)
 
 The goal of phase one is to implement the pin muxing driver into RTEMS. But before
 this we will have to implement OFW functions. Since they are required by the
@@ -98,7 +98,7 @@ Once this patch gets merged RTEMS will support the following OF functions.
 20. OF_node_from_xref
 21. OF_xref_from_node
 
-### Making FreeBSD import easy in RTEMS
+### Making FreeBSD import easy in RTEMS (June 17 2020)
 
 The main goal of this work is to reduce the number of modification that need to
 be done to a driver to make it work with RTEMS. To achieve this we will have to
