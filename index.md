@@ -252,7 +252,7 @@ work required to port a driver with and without these basic structures implement
 > A lot of code has been omitted since they are mostly driver related stuff
 > and don't help in comparing the differences.
 
-##### Before
+##### Modifications needed before implementing the FreeBSD structures
 
 ```c
 
@@ -464,7 +464,7 @@ DRIVER_MODULE(ti_pinmux, simplebus, ti_pinmux_driver, ti_pinmux_devclass, 0, 0);
 
 ```
 
-##### After
+##### Modifications needed after implementing the FreeBSD structures
 
 ```c
 
@@ -606,13 +606,227 @@ DRIVER_MODULE(ti_pinmux, simplebus, ti_pinmux_driver, ti_pinmux_devclass, 0, 0);
 
 ```
 
+#### DIFF with original driver imported from FreeBSD
+
+The original driver from FreeBSD can be found [here](https://github.com/freebsd/freebsd/blob/master/sys/arm/ti/ti_pinmux.c).
+
+**Diff b/w the original driver and ported driver before implementing FreeBSD structures**
+```c
+--- a.c	2020-07-04 01:43:22.968714759 +0530
++++ b.c	2020-07-04 01:43:34.994269014 +0530
+@@ -5,30 +5,119 @@ struct pincfg {
+ 	uint32_t conf;
+ };
+ 
++#ifndef __rtems__
+ static struct resource_spec ti_pinmux_res_spec[] = {
+ 	{ SYS_RES_MEMORY,	0,	RF_ACTIVE },	/* Control memory window */
+ 	{ -1, 0 }
+ };
++#endif
+ 
++#ifndef __rtems__
+ static struct ti_pinmux_softc *ti_pinmux_sc;
++#else
++static struct ti_pinmux_softc ti_pinmux_sc_instance;
++#define ti_pinmux_sc (&ti_pinmux_sc_instance)
++#endif /* __rtems__ */
+ 
+ #define	ti_pinmux_read_2(sc, reg)		\
++#ifndef __rtems__
+     bus_space_read_2((sc)->sc_bst, (sc)->sc_bsh, (reg))
++#else
++	(*(uint16_t *) reg)
++#endif
+ #define	ti_pinmux_write_2(sc, reg, val)		\
++#ifndef __rtems__
+     bus_space_write_2((sc)->sc_bst, (sc)->sc_bsh, (reg), (val))
++#else
++	((*(uint16_t *) reg) = val)
++#endif
+ #define	ti_pinmux_read_4(sc, reg)		\
++#ifndef __rtems__
+     bus_space_read_4((sc)->sc_bst, (sc)->sc_bsh, (reg))
++#else
++	(*(uint32_t *) reg)
++#endif
+ #define	ti_pinmux_write_4(sc, reg, val)		\
++#ifndef __rtems__
+     bus_space_write_4((sc)->sc_bst, (sc)->sc_bsh, (reg), (val))
++#else
++	((*(uint32_t *) reg) = val)
++#endif
+ 
+ static const struct ti_pinmux_device *ti_pinmux_dev;
+ 
+ /* Driver related code omitted */
+ 
++static uint32_t
++beagle_alloc_resource(int node)
++{
++	char *name;
++	char *ptr;
++	int parent;
++	uint32_t reg;
++
++	/* if parent == 0 then we have reached the root node */
++	if (node == 0) {
++		return 0;
++	}
++
++	reg = 0;
++	parent = fdt_parent_offset(fdt, node);
++	reg = (uint32_t)beagle_get_reg_of_node(fdt, node);
++
++	if (reg != NULL) {
++		return (reg + beagle_alloc_resource(parent));
++	}
++
++	name = get_name(node, true);
++	if (name != NULL && ((ptr = strchr(name, '@')) != NULL)){
++		reg = strtol(ptr+1, NULL, 16);
++	}
++
++	return (reg + beagle_alloc_resource(parent));
++}
++
++static void
++beagle_pinmux_init(void)
++{
++	int node;
++	int err;
++	struct ti_pinmux_softc *sc;
++
++	fdt = bsp_fdt_get();
++
++	if ((err = fdt_check_header(fdt)) != 0)
++		printk("Error fdt value");
++
++	node = fdt_node_offset_by_compatible(fdt, -1, "pinctrl-single");
++
++	sc = ti_pinmux_sc;
++
++	sc->regs = beagle_alloc_resource(node);
++
++#if IS_DM3730
++	ti_pinmux_dev = &omap4_pinmux_dev;
++#endif
++#if IS_AM335X
++	ti_pinmux_dev = &ti_am335x_pinmux_dev;
++#endif
++
++	fdt_pinctrl_register(node, "pinctrl-single,pins");
++	fdt_pinctrl_configure_tree(dev);
++
++}
++
++RTEMS_SYSINIT_ITEM(
++	beagle_pinmux_init,
++    RTEMS_SYSINIT_BSP_PRE_DRIVERS,
++    RTEMS_SYSINIT_ORDER_FIRST);
++
++
+ /*
+  * Device part of OMAP SCM driver
+  */
+ 
++#ifndef __rtems__
+ static int
+ ti_pinmux_probe(device_t dev)
+ {
+@@ -93,6 +182,7 @@ ti_pinmux_attach(device_t dev)
+ 	return (0);
+ }
+ 
++#ifndef __rtems__
+ static device_method_t ti_pinmux_methods[] = {
+ 	DEVMETHOD(device_probe,		ti_pinmux_probe),
+ 	DEVMETHOD(device_attach,	ti_pinmux_attach),
+@@ -110,4 +200,5 @@ static driver_t ti_pinmux_driver = {
+ 
+ static devclass_t ti_pinmux_devclass;
+ 
+-DRIVER_MODULE(ti_pinmux, simplebus, ti_pinmux_driver, ti_pinmux_devclass, 0, 0);
+\ No newline at end of file
++DRIVER_MODULE(ti_pinmux, simplebus, ti_pinmux_driver, ti_pinmux_devclass, 0, 0);
++#endif
+\ No newline at end of file
+
+```
+There were a total of 92 additions. And this can get even worse for some files.
+
+**Diff b/w the original driver and ported driver after implementing FreeBSD structures**
+```c
+--- a.c	2020-07-04 01:43:22.968714759 +0530
++++ c.c	2020-07-04 01:57:01.814395576 +0530
+@@ -1,3 +1,4 @@
++
+ /* Import stuff omitted */
+ 
+ struct pincfg {
+@@ -29,6 +30,7 @@ static const struct ti_pinmux_device *ti
+  * Device part of OMAP SCM driver
+  */
+ 
++#ifndef __rtems__
+ static int
+ ti_pinmux_probe(device_t dev)
+ {
+@@ -63,6 +65,7 @@ ti_pinmux_probe(device_t dev)
+ 	device_set_desc(dev, "TI Pinmux Module");
+ 	return (BUS_PROBE_DEFAULT);
+ }
++#endif
+ 
+ static int
+ ti_pinmux_attach(device_t dev)
+@@ -93,6 +96,25 @@ ti_pinmux_attach(device_t dev)
+ 	return (0);
+ }
+ 
++static void
++driver_init()
++{
++	static ti_pinmux_softc ti_pinmux_softc_instance;
++	static device pinmux_device = {
++		.softc = &ti_pinmux_softc_instance,
++		.node = OF_finddevice("pinctrl-single");
++	};
++
++	ti_pinmux_attach(&pinmux_device);
++}
++
++RTEMS_SYSINIT_ITEM(
++	driver_init,
++	RTEMS_SYSINIT_BSP_START,
++	RTEMS_SYSINIT_ORDER_FIRST
++);
++
++#ifndef __rtems__
+ static device_method_t ti_pinmux_methods[] = {
+ 	DEVMETHOD(device_probe,		ti_pinmux_probe),
+ 	DEVMETHOD(device_attach,	ti_pinmux_attach),
+@@ -110,4 +132,5 @@ static driver_t ti_pinmux_driver = {
+ 
+ static devclass_t ti_pinmux_devclass;
+ 
+-DRIVER_MODULE(ti_pinmux, simplebus, ti_pinmux_driver, ti_pinmux_devclass, 0, 0);
+\ No newline at end of file
++DRIVER_MODULE(ti_pinmux, simplebus, ti_pinmux_driver, ti_pinmux_devclass, 0, 0);
++#endif
+
+```
+In this case there are only 24 additions. Which is lot less compared to the
+previous case.
+
 #### Summary
 
-As you can see the first case required a lot more modifications than the second
-case. This modification is common to all imported drivers. You can take a look
-at the IMX pinmux driver, both the TI and IMX driver repeat a similar amount
-of code. By implementing these FreeBSD structures we have highly reduced the
-number of modifications required to port the driver.
+As you can see from the diffs, the first case required a lot more modifications
+than the second case. Most of modifications made are common to all drivers.
+For eg: we can take a look at the IMX pinmux driver [here](https://git.rtems.org/rtems/tree/bsps/arm/imx/start/imx_iomux.c)
+we can that their are lot of similar changes done in both the TI and IMX drivers.
+With the help of this work we can greatly reduce the amount of redundant code
+hence less work and bugs.
 
 #### References
 <https://docs.oracle.com/cd/E19457-01/801-7042/801-7042.pdf>
