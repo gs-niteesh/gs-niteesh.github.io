@@ -1153,9 +1153,9 @@ the built BSP under $RTEMS/build
 You can refer to the following documents for more information about the build
 system
 
-+ [User Manual](https://ftp.rtems.org/pub/rtems/people/sebh/user.pdf)
++ [User Manual](assets/pdf/user.pdf)
 
-+ [Engineering Manual](https://ftp.rtems.org/pub/rtems/people/sebh/eng.pdf)
++ [Engineering Manual](assets/pdf/eng.pdf)
 
 ### Rebasing old patches to the new build system (July 1 2020 Week 5)
 
