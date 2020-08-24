@@ -5,3 +5,4 @@ theme: just-the-docs
 permalink: pretty
 remote_theme: pmarsceill/just-the-docs
 search_enabled: false
+url: "https://gs-niteesh.github.io"
