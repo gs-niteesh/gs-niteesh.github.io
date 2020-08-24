@@ -1,0 +1,6 @@
+@media (min-width: 100px) {
+    .side-bar {
+        width: calc((80% - 1064px) / 2 + 264px);
+        min-width: 100px;
+    }
+}
