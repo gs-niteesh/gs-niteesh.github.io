@@ -64,6 +64,12 @@ Thus the final list of files that have to be ported are:
 7. ti_scm.h
 8. ti_scm.c
 
+One thing to note is that we will not be removing the ti_hwmods driver from
+libBSD after importing it to RTEMS this is because the driver is not possible
+to port to RTEMS as it is since it has dependency on the device structure in
+libBSD instead we will be modifying it slightly to cater the local BSP drivers
+and let the driver present in libBSD to cater the libBSD drivers.
+
 Once we import these files to RTEMS, we use the FreeBSD structure to do the
 required modifications to make them work with RTEMS.
 
