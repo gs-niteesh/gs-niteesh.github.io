@@ -38,3 +38,5 @@ drivers from [nexus-devices.h](https://git.rtems.org/rtems-libbsd/tree/rtemsbsd/
 Once the drivers are completely removed from libBSD, do a clean build and try
 out some test applications. If the drivers ported to RTEMS work properly then
 the test applications should behave the same as before removing the drivers.
+
+The commit that removes the pinmux driver from libBSD can be found [here](https://github.com/gs-niteesh/rtems-libbsd/commit/15d1a3621757436856d85509fc5aed37371acc1d).
