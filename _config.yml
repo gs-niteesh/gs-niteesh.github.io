@@ -1,7 +1,6 @@
 title: GSoC 2020 Blog
 description: Summer with RTEMS
 show_downloads: false
-theme: just-the-docs
 permalink: pretty
 remote_theme: pmarsceill/just-the-docs
 search_enabled: false
