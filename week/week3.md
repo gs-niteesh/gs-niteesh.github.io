@@ -106,22 +106,17 @@ where this would work and where this wouldn't.
 
 First lets looks at the case where it works.
 
-```less
+```c
 / {
-	mmc@7e300000 {
-				compatible = "brcm,bcm2835-mmc", "brcm,bcm2835-sdhci";
-				reg = <0x7e300000 0x100>;
-				interrupts = <0x2 0x1e>;
-				clocks = <0x3 0x1c>;
-				dmas = <0xa 0xb>;
-				dma-names = "rx-tx";
-				brcm,overclock-50 = <0x0>;
-				status = "disabled";
-				pinctrl-names = "default";
-				pinctrl-0 = <0x1a>;
-				bus-width = <0x4>;
-				phandle = <0x2c>;
-			};
+   mmc@7e300000 {
+        compatible = "brcm,bcm2835-mmc", "brcm,bcm2835-sdhci";
+        reg = <0x7e300000 0x100>;
+        interrupts = <0x2 0x1e>;
+        clocks = <0x3 0x1c>;
+        pinctrl-names = "default";
+        pinctrl-0 = <0x1a>;
+        phandle = <0x2c>;
+   };
 }
 ```
 
@@ -130,7 +125,7 @@ it.
 
 Second case
 
-```less
+```c
 / {
 	l4_wkup@44c00000 {
 		#address-cells = <0x1>;
@@ -192,7 +187,7 @@ range the child belongs to and uses that range values to do tha mapping.
 
 eg:
 
-```less
+```c
 epwmss@48304000 {
 	reg = <0x48304000 0x10>;
 	#address-cells = <0x1>;
