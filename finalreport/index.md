@@ -48,15 +48,15 @@ changes.
 
 As per the proposal, the goal of the first phase was to port, test the
 pinmux driver with libBSD and to implement a few OFW functions which were
-majorily used. But after a few discussions with other community members,
+majorly used. But after a few discussions with other community members,
 porting the OFW API to RTEMS instead of just implementing a few functions
 seemed like a good idea. This resulted in me porting the OFW API to RTEMS. Once
 this was done I ported the pinmux driver to RTEMS.
 
-And while porting the pinmux driver, I compared it other ported drivers, there
-were lot of similarities so we also decided to implement a few structures and
-functions which will help to reduce the amount of work done in porting a driver.
-I have also written a blog post about it [here](http://localhost:4000/week/week2/).
+And while porting the pinmux driver, I compared it to other ported drivers,
+there were lot of similarities so we also decided to implement a few structures
+and functions which will help to reduce the amount of work done in porting a
+driver. I have also written a blog post about it [here](http://localhost:4000/week/week2/).
 
 During this time RTEMS was planning to move to a WAF based build system. So as
 per suggestions of my mentor I rebased all these patches to the new build system
@@ -81,7 +81,7 @@ implemented in RTEMS. And the last couple of weeks was spent in porting, testing
 the clock driver along with refactoring the Beagle i2c driver.
 
 As per feedback from my mentor, I posted my patches to the mailing list and
-spent a fair amount of time discussing and incoporating the changes suggested.
+spent a fair amount of time discussing and incorporating the changes suggested.
 
 Outcomes of phase 2:
 1. Tested the pinmux driver with libBSD.
@@ -93,7 +93,7 @@ Outcomes of phase 2:
 ## Phase Three
 
 In this phase, we realized the license issue with FreeBSD OFW API. The OFW API
-is FreeBSD was BSD-4 licensed and RTEMS only allows BSD-2 licensed code. This
+in FreeBSD was BSD-4 licensed and RTEMS only allows BSD-2 licensed code. This
 wasn't previously noticed because RTEMS imports a lot of code from FreeBSD so
 the licensing part was ignored :(. This was discussed in the mailing list and
 it was decided to implement the OFW API in RTEMS itself. So I proceded with
