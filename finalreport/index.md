@@ -134,5 +134,5 @@ drivers and will work on unifying the BSP.
 
 ## Acknowledgment
 
-I thank my mentors and all the members of THE RTEMS community for being really
+I thank my mentors and all the members of the RTEMS community for being really
 supportive, it was an excellent learning experience and a lot of fun.
