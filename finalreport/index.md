@@ -38,6 +38,11 @@ The goal of the project is to fix the following tickets
 
 ## Summary
 
+By the end, I finished importing the Beagle clock and pinmux driver into RTEMS,
+implemented the RTEMS OFW API(FDT only implementation) and FreeBSD
+structures to make the porting of driver easy and finally refactored the Beagle
+i2c driver. I will refactor rest of the driver post GSoC.
+
 Below I have summarized the work done in each phase and also the changes and
 challenges that were encountered.
 
@@ -126,3 +131,8 @@ these branches will make your testing easy :).
 
 I wasn't able to refactor all the drivers, so I will be refactoring these
 drivers and will work on unifying the BSP.
+
+## Acknowledgment
+
+I thank my mentors and all the members of THE RTEMS community for being really
+supportive, it was an excellent learning experience and a lot of fun.
