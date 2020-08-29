@@ -119,7 +119,7 @@ Outcomes of phase 3:
 
 1. Pinmux driver: &nbsp;[RTEMS,](https://github.com/gs-niteesh/rtems/commits/beagle-rtems6-pinmux-18-aug) &nbsp;&nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/15d1a3621757436856d85509fc5aed37371acc1d)
 2. Clock driver: &nbsp; [RTEMS,](https://github.com/gs-niteesh/rtems/commits/beagle-rtems6-clock-driver-19-aug) &nbsp;&nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/72749933707853448c1318b8de77d83504667ce4)
-3. FreeBSD structures: &nbsp; [RTEMS](https://github.com/gs-niteesh/rtems/commit/d93ebac2306aa268f4ca1e992916698843e3d9ee)
+3. FreeBSD structures: &nbsp; [RTEMS](https://github.com/gs-niteesh/rtems/commit/e458c27322d95ec115024b0f13816573bb912265)
 4. RTEMS OFW API: &nbsp; [RTEMS,](https://github.com/gs-niteesh/rtems/commit/c65076c468d64526181000f4efc673790c63c525) &nbsp;&nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/9d94279bf9527fb126ad592c590530352e3a1939)
 
 The below mentioned branches contain all the commits that were made, using
