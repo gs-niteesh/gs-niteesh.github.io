@@ -28,3 +28,7 @@ code {
 pre.highlight {
     background-color: #0c1228;
 }
+
+li::before, .main-content ol{
+    color: #747175 !important;
+}

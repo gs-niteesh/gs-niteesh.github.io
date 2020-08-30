@@ -70,7 +70,7 @@ and had also written a blog about it.
 I am not posting any links to my commits because there underwent a lot of
 changes in the later weeks hence I have decided to post them in last.
 
-Outcomes of phase 1:
+### Outcomes of phase 1:
 1. Ported the OFW API to RTEMS
 2. Ported the Beagle pinmux driver to RTEMS
 3. Implemented FreeBSD structures to make porting easy.
@@ -88,7 +88,7 @@ the clock driver along with refactoring the Beagle i2c driver.
 As per feedback from my mentor, I posted my patches to the mailing list and
 spent a fair amount of time discussing and incorporating the changes suggested.
 
-Outcomes of phase 2:
+### Outcomes of phase 2:
 1. Tested the pinmux driver with libBSD.
 2. Ported the clock driver into RTEMS.
 3. Fixed bugs in the clock driver.
@@ -109,23 +109,35 @@ FreeBSD OFW API from libBSD. And also spent some time fixing bugs in the
 implementation. Finally, the last few days were spent in refactoring the
 previous patches to this API, fixing bugs and writing blogs.
 
-Outcomes of phase 3:
+### Outcomes of phase 3:
 1. Implemented the RTEMS OFW API.
 2. Tested with libBSD
 3. Refactored the previous patches.
 4. Updated the blogs.
 
-## Links to commits
+## Link to commits
 
-1. Pinmux driver: &nbsp;[RTEMS,](https://github.com/gs-niteesh/rtems/commits/beagle-rtems6-pinmux-18-aug) &nbsp;&nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/15d1a3621757436856d85509fc5aed37371acc1d)
-2. Clock driver: &nbsp; [RTEMS,](https://github.com/gs-niteesh/rtems/commits/beagle-rtems6-clock-driver-19-aug) &nbsp;&nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/72749933707853448c1318b8de77d83504667ce4)
-3. FreeBSD structures: &nbsp; [RTEMS](https://github.com/gs-niteesh/rtems/commit/e458c27322d95ec115024b0f13816573bb912265)
-4. RTEMS OFW API: &nbsp; [RTEMS,](https://github.com/gs-niteesh/rtems/commit/c65076c468d64526181000f4efc673790c63c525) &nbsp;&nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/9d94279bf9527fb126ad592c590530352e3a1939)
+1. Pinmux driver
+    * [Import commit](https://github.com/gs-niteesh/rtems/commit/1eb3cef5fa24d21e407fb8c706dce83295c18049)
+    * [Port commit](https://github.com/gs-niteesh/rtems/commit/42590fb1c8c8e4228500f995ff6a7c0e0e607133)
+    * [Remove driver from libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/15d1a3621757436856d85509fc5aed37371acc1d)
+
+2. [Implement FreeBSD structures in RTEMS](https://github.com/gs-niteesh/rtems/commit/e458c27322d95ec115024b0f13816573bb912265)
+
+3. Clock driver
+    * [Import commit](https://github.com/gs-niteesh/rtems/commit/915ad17d64d2a5ded1abe037c6cd6d9457c66e76)
+    * [Port commit](https://github.com/gs-niteesh/rtems/commit/64706c200115f5d47dc9a19a567e6d9e80e092ee)
+    * [Remove driver from libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/72749933707853448c1318b8de77d83504667ce4)
+
+4. OpenFirmWare API
+    * [RTEMS Implmentation](https://github.com/gs-niteesh/rtems/commit/c65076c468d64526181000f4efc673790c63c525)
+    * [RTEMS OFW test](https://github.com/RTEMS/rtems/commit/1cf49fd8ec7cd9c6bd5595a4f9f11760bb06c191)
+    * [Remove Openfirm from libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/9d94279bf9527fb126ad592c590530352e3a1939)
 
 The below mentioned branches contain all the commits that were made, using
 these branches will make your testing easy :).
 
-[RTEMS](https://github.com/gs-niteesh/rtems/commits/GSoC2020_final) &nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commits/GSoC2020_final)
+[RTEMS,](https://github.com/gs-niteesh/rtems/commits/GSoC2020_final) &nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commits/GSoC2020_final)
 
 ## Future Work
 
