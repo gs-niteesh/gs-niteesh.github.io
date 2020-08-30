@@ -134,10 +134,11 @@ previous patches to this API, fixing bugs and writing blogs.
     * [RTEMS OFW test](https://github.com/RTEMS/rtems/commit/1cf49fd8ec7cd9c6bd5595a4f9f11760bb06c191)
     * [Remove Openfirm from libBSD](https://github.com/gs-niteesh/rtems-libbsd/commit/9d94279bf9527fb126ad592c590530352e3a1939)
 
-The below mentioned branches contain all the commits that were made, using
-these branches will make your testing easy :).
+* The below mentioned branches contain all the commits that were made through
+out GSoC, using these branches will make your testing easy :).
+    * [RTEMS](https://github.com/gs-niteesh/rtems/commits/GSoC2020_final)
 
-[RTEMS,](https://github.com/gs-niteesh/rtems/commits/GSoC2020_final) &nbsp; [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commits/GSoC2020_final)
+    * [RTEMS-libBSD](https://github.com/gs-niteesh/rtems-libbsd/commits/GSoC2020_final)
 
 ## Future Work
 
